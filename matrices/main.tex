@@ -1,0 +1,211 @@
+\documentclass{beamer}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset {
+    language=Python,
+    backgroundcolor=\color{black!5}, % set background color
+    basicstyle=\footnotesize, % basic font setting
+}
+% Theme of presentation
+\mode<presentation>
+{
+	\usetheme{Madrid}
+	\usecolortheme{orchid}
+}
+
+% Information about presentation
+\title{Fast Matrix Exponentiation}
+\subtitle{With Applications}
+\institute{UNIST}
+\author{Nurseiit Abdimomyn}
+
+% Uncomment this, if you want the table of contents to pop up at
+% the beginning of each section/subsection:
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Outline}
+   \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\iffalse
+  \AtBeginSubsection[]
+  {
+    \begin{frame}<beamer>{Outline}
+      \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+  }
+\fi
+\begin{document}
+
+% Title slide
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\iffalse
+    \begin{frame}{Table of contents}
+      \tableofcontents
+    \end{frame}
+
+    \begin{frame}{Introduction}
+    	\begin{block}{\LaTeX\ Beamer}
+    		LaTeX Beamer is a powerful tool to create presentations
+    	\end{block}
+    	\pause
+    	\begin{block}{Export to PDF}
+    		It produces platform-independent presentations in PDF
+    	\end{block}	
+    \end{frame}
+\fi
+
+\section{Introduction}
+
+\iffalse
+    \begin{frame}{Blocks}
+    	\begin{block}{This is block}
+    		Using \textit{blocks} is a handy way to present your text
+    	\end{block}
+    	\pause
+    	\begin{block}{Pause between}
+    		You can also insert a pause between blocks
+    	\end{block}	
+    \end{frame}
+\fi
+
+\begin{frame}{Matrix Multiplication}
+	Consider two matrices:
+	\pause
+	\begin{itemize}
+		\item Matrix $A$ is $n * k$ dimensional.
+		\pause
+		\item Matrix $B$ is $k * m$ dimensional.
+	\end{itemize}
+	\pause
+	Notice that $A$'s columns and $B$'s rows number are identical!
+	\pause \newline \newline
+	Then we define matrix $C = A * B$ as:
+	\newline
+	 \[
+	 \left[ {\begin{array}{cccc}
+       c_{11} & c_{12} & ... & c_{1m} \\
+       c_{21} & c_{22} & ... & c_{2m} \\
+         ...   &   ...   & ... &   ...   \\
+       c_{n1} & c_{n2} & ... & c_{nm}
+      \end{array} } \right]
+      =
+      \left[ {\begin{array}{cccc}
+       a_{11} & a_{12} & ... & a_{1k} \\
+       a_{21} & a_{22} & ... & a_{2k} \\
+         ...   &   ...   & ... &   ...   \\
+       a_{n1} & a_{n2} & ... & a_{nk}
+      \end{array} } \right]
+      *
+      \left[ {\begin{array}{cccc}
+       b_{11} & b_{12} & ... & b_{1m} \\
+       b_{21} & b_{22} & ... & b_{2m} \\
+         ...   &   ...   & ... &   ...   \\
+       b_{k1} & b_{k2} & ... & b_{km}
+      \end{array} } \right]
+    \]
+    \pause \newline
+    Thus, $C$ is an $n * m$ dimensional matrix.
+    \newline 
+    Which is calculated as: 
+    $c_{ij} = \sum\limits_{r=1}^k a_{ir} * b_{rj}$
+\end{frame}
+
+\begin{frame}{Couple of things to notice}
+	\begin{itemize}
+	    \item 
+    	    Matrix $C$ has $n * m$ elements and each element is computed in $k$ steps with given formula.
+    	    \pause \newline
+    	    Thus, we can obtain $C$ in $O(n * m * k)$, given $A$ and $B$.
+    	\pause
+	    \item
+	        If $n = m = k$ (i.e. both $A$ and $B$ have $n$ rows and $n$ columns), 
+	        \newline 
+	        then $C$ has $n$ rows and $n$ columns, and can be computed in $O(n^3)$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Some useful properties of matrix multiplication}
+	\begin{itemize}
+	    \item 
+    	    It is $not$ $commutative$: $A * B \neq B * A$ in general case.
+    	\pause
+	    \item
+	        It is $associative$: \newline $A * B * C = (A * B) * C = A * (B * C)$ in case $A * B * C$ exists;
+        \pause	    
+            \item
+	        If you have a matrix with $n$ rows and $n$ columns,
+	        \newline then multiplying it by $I_n$ gives the same matrix. 
+	        \newline i. e. $I_n * A = A * I_n = A$.
+	        \pause \newline Where $I_n$ is a matrix with $n$ rows and $n$ columns of such form:
+	        \[
+	         I_n = 
+        	 \left[ {\begin{array}{cccc}
+               1 & 0 & ... & 0 \\
+               0 & 1 & ... & 0 \\
+                 ...   &   ...   & ... &   ...   \\
+               0 & 0 & ... & 1
+              \end{array} } \right]
+            \]
+	\end{itemize}
+\end{frame}
+
+\section{Matrix exponentiation}
+
+\begin{frame}[fragile]{Matrix exponentiation}
+    Suppose we need to find some $n*n$ dimensional square matrix $A$ to the power $p$ or $A^p$
+    \pause \newline We can do so via:
+      \begin{lstlisting}
+      function matpow_naive(A, p):
+        result = I_n
+        for i = 1..p:
+          result = result * A
+        return result
+      \end{lstlisting}
+    Which will run in $O(n^3 * p)$
+\end{frame}
+
+\begin{frame}[fragile]{Fast Matrix exponentiation}
+    Can we do it any faster?
+    \pause \newline Yes, we can apply the $BinPower$ algorithm here:
+      \begin{lstlisting}
+      function matBinPow(A, p):
+        result = I_n
+        while p > 0:
+          if p % 2 == 1:
+            result = result * A
+          A = A * A
+          p = p / 2
+        return result
+      \end{lstlisting}
+    Which will run in $O(n^3 * \log{p})$
+\end{frame}
+
+\section{Applications}
+
+\begin{frame}{Finding Nth Fibonacci number}
+  Fibonacci numbers, $F_n$ are defined as:
+  \begin{itemize}
+    \item $F_0 = F_1 = 1$
+    \item $F_i = F_{i-1} + F_{i-2}$ for $i > 1$.
+  \end{itemize}
+  \pause
+  We want to calculate $F_n$ $mod$ $M$, where $n < 10^{18}$ and $M = 10^9 + 7$.
+\end{frame}
+
+\begin{frame}{Finding Nth Fibonacci number}
+  Suppose we have a vector (matrix with 
+  one row and several columns) of $(F_{i-2}, F_{i-1})$
+  and we want to multiply it by some matrix $M$, so that we get $(F_{i-1}, F_i)$ as a result.
+\end{frame}
+
+\begin{frame}{}
+		\LARGE{\centerline{Thank you!}}
+\end{frame}
+
+\end{document}
