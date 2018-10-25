@@ -61,3 +61,21 @@ function matBinPow(A, P):
 ```
 
 Which runs in **O(log(P) x N^3)**.
+
+## Applications of Matrix Exponentiation
+### Finding *Nth* Fibonacci number:
+Fibonacci numbers, **F_N** are defined as:
+1. **F_0 = F_1 = 1**
+2. **F_i = F_{i-1} + F_{i-2}** for _**i >= 2**_.
+
+We are to find **F_N** some modulo **M**, where *N < 10^18* and *M = 10^9 + 7*.
+
+#### Trivial Solution...
+Skipped.
+#### Faster Solution
+Here is when matrices get involved. 
+
+Suppose we have a vector (matrix with one row and several columns) of **(F_{i - 2}, F_{i - 1})** and we want to multiply it by some matrix, so that we get **(F_{i - 1}, F_i)**. 
+
+Let’s call this matrix **M**:
+
