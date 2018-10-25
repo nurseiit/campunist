@@ -1,0 +1,32 @@
+body {
+  padding: 40px;
+  font-family: sans-serif;
+  font-size: 14px;
+  background: #3d7eaa; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #3d7eaa, #ffe47a); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #3d7eaa, #ffe47a);
+}
+#main {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  margin-left: 36%;
+  width: 250px;
+}
+ul li {
+  color: #333;
+  background-color: rgba(255,255,255,.5);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  list-style: none;
+}
+
+li:hover {
+  background-color: pink;
+}
+h2 {
+  color: white;
+}
