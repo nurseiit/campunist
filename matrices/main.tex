@@ -446,6 +446,87 @@
   If you use \textit{Fast Maxtrix Exponentiation} you get $O(k^3 * \log{N})$ solution.
 \end{frame}
 
+\begin{frame}{Finding the sum of Fibonacci numbers up to $N$}
+  Let’s go back to Fibonacci numbers:
+  \begin{itemize}
+    \item $F_0 = F_1 = 1$
+    \item $F_i = F_{i - 1} + F_{i - 2}$ for $i \geq 2$
+  \end{itemize}
+  \pause
+  Now, suppose a new sequence $P_i$ is defined as follows:
+  \newline
+  $P_i = F_0 + F_1 + ... + F_i$
+  \newline i.e the sum of first $i$ elements of the Fibonacci Sequence.
+  \pause \newline We are to calculate $P_N$ $mod$ $10^9 + 7$ for $N \leq 10^{18}$
+\end{frame}
+
+\begin{frame}{Finding the sum of Fibonacci numbers up to $N$}
+  Well, we can do that with matrices, again!
+  \newline Let's imagine we have a matrix $M$, such that:
+  \newline
+  $(P_{i-1}, F_{i-2}, F_{i-1}) * M = (P_i, F_{i-1}, F_i)$
+  \pause \newline
+  Then, we can get $P_N$ as:
+  \newline
+  $(P_1, F_0, F_1) * M^{N-1} = (P_N, F_{N-1}, F_N)$
+  \pause \newline
+  By now you must already be familiar with the method of 
+  obtaining $M$ and determining its size. I'll show you $M$ right away:
+  \pause
+  \[
+    M = 
+    \left[ {
+      \begin{array}{ccc}
+        1 & 0 & 0 \\
+        1 & 0 & 1 \\
+        1 & 1 & 1 \\      
+      \end{array} } 
+    \right]
+  \]
+  \pause
+  You can find sum of first $N$ numbers of any recurrent linear sequence $A_i$, not just \textit{Fibonacci}.
+\end{frame}
+
+\begin{frame}[fragile]{Solving DP problems with fixed linear transitions}
+  Let's solve a little more complex but an interesting problem.
+  \pause
+  \begin{lstlisting}
+    Count the number of strings of length L with 
+    lowercase english letters, if some pairs of
+    letters can not appear consequently in those strings.     
+  \end{lstlisting}
+  \centerline{For $L \leq 10^7$ with up to $100$ inputs.}
+
+  The \textbf{bad} pairs are described in the input as a matrix: 
+  \newline
+    $bad[i][j] = 1$ if letter $j$ can not go after letter $i$ in a $valid$ string.
+  \newline
+    Otherwise, $bad[i][j] = 0$.
+\end{frame}
+
+\begin{frame}[fragile]{Solving DP problems with fixed linear transitions}
+  Let's come up with a basic dynamic programming solution first.
+  \pause \newline
+  Let $dp[n][last]$ be the number of valid strings of length $n$, which end with the letter $last$.
+  \pause \newline
+  Then we can calculate $dp$ in order of increasing $n$ as follows:
+  \begin{lstlisting}
+    dp[1][a] = dp[1][b] = ... = dp[1][z] = 1
+    for n = 2..L:
+      for last = a..z:
+        for next = a..z:
+          if bad[last][next] != 1:
+            dp[n+1][next] += dp[n][last]
+  \end{lstlisting}
+  \pause
+  This solution works in $\Theta(L * 26^2)$ time and won't pass TL of $1$ second for $L = 10^7$.
+\end{frame}
+
+\begin{frame}[fragile]{Solving DP problems with fixed linear transitions}
+  To speed things up, we can apply matrix multiplication. But how?
+  \pause \newline
+\end{frame}
+
 \begin{frame}{}
                 \LARGE{\centerline{Thank you!}}
 \end{frame}
