@@ -31,3 +31,33 @@ Thus, **C is an (NxM) dimensional matrix** and is obtained as follows:
 Where **I_N** is a matrix with N rows and N columns of such form:
 
 ![I_N](https://github.com/nurseiit/campunist/raw/master/matrices/files/i_n.png)
+
+## Matrix exponentiation
+Suppose we need to find some square matrix **A** to the power of **P** or **A^P**.
+
+We can do so via:
+```python
+function matpow_naive(A, P):
+  result = I_N
+  for i = 1..P:
+    result = result * A
+  return result
+```
+
+Which runs in **O(P x N^3)**: we multiply NxN matrix P times.
+
+
+But, we can do it much faster via BinPow as follows:
+
+```python
+function matBinPow(A, P):
+  result = I_N
+  while P > 0:
+    if P % 2 == 1:
+      result = result * A
+    A = A * A
+    P = P / 2
+  return result
+```
+
+Which runs in **O(log(P) x N^3)**.
