@@ -265,8 +265,8 @@
   \pause
   We want to find $a, b, c$ and $d$.
   \newline
-  Let's see what we get if we multiply $(F_{i-2}, F_{i-1})$ by $M$ by definition:
-  \newline
+  Let's see what we get if we multiply $(F_{i-2}, F_{i-1})$ by $M$ by definition:  
+  \newline \pause
   \[
     (F_{i-2}, F_{i-1})
     *
@@ -276,7 +276,72 @@
         c & d \\      
       \end{array} } 
     \right]
+    =
+    (a * F_{i-2} + c * F_{i-1}, b * F_{i-2} + d * F_{i-1})
   \]
+  \pause
+  Moreover, we know that the result of this multiplication must be $(F_{i-1}, F_i)$:
+  \newline
+  $(a * F_{i-2} + c * F_{i-1}, b * F_{i-2} + d * F_{i-1}) = (F_{i-1}, F_i)$
+\end{frame}
+
+\begin{frame}{Finding Nth Fibonacci number}
+  Now we can write the system of equations:
+  \begin{itemize}
+    \item 
+      $a * F_{i-2} + c * F_{i-1} = F_{i-1}$
+    \item
+      $b * F_{i-2} + d * F_{i-1} = F_i$
+  \end{itemize}
+  \pause
+  The easiest solution is to set:
+  \newline
+  $a = 0, b = 1, c = 1, d = 1$
+  \pause \newline
+  Thus, we obtain:
+  \[
+    (F_{i-2}, F_{i-1})
+    *
+    \left[ {
+      \begin{array}{cc}
+        0 & 1 \\
+        1 & 1 \\      
+      \end{array} } 
+    \right]
+    = (F_{i-1}, F_i)
+  \]
+\end{frame}
+
+\begin{frame}{Finding Nth Fibonacci number}
+  You may wonder why on Earth would we need to overcomplicate the problem, introduce matrices or else?
+  \newline Hang on, you'll see in a moment.
+  \pause \newline
+  Initially, we have $F_0$ and $F_1$.
+  \newline
+  $(F_0, F_1) = (1, 1)$
+  \pause \newline
+  By multiplying this vector with the matrix M we get:
+  \newline
+  $(F_1, F_2) = (1, 2)$ or $(1, 1) * M = (1, 2)$.
+  \pause \newline
+  If we multiply $(1, 2)$ by $M$:
+  \newline
+  $(1, 2) * M = (2, 3)$
+  \pause \newline
+  But we could get the same result by multiplying $(1, 1)$ by $M^2$.
+  \newline
+  $(1, 1) * M^2 = (2, 3)$.
+  \pause \newline Now, can you see the pattern?
+\end{frame}
+
+\begin{frame}{Finding Nth Fibonacci number}
+  In general, we get:
+  \newline
+  $(1, 1) * M^k = (F_k, F_{k+1})$
+  \pause \newline
+  Computing $M^k$ takes $O(2^3 * log(k))$ time. 
+  \newline
+  Thus, we can now find $N$-th Fibonacci number in $O(log(N))$ time.
 \end{frame}
 
 \begin{frame}{}
