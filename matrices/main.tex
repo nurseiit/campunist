@@ -144,14 +144,15 @@
 	        \newline i. e. $I_n * A = A * I_n = A$.
 	        \pause \newline Where $I_n$ is a matrix with $n$ rows and $n$ columns of such form:
 	        \[
-	         I_n = 
-        	 \left[ {\begin{array}{cccc}
-               1 & 0 & ... & 0 \\
-               0 & 1 & ... & 0 \\
-                 ...   &   ...   & ... &   ...   \\
-               0 & 0 & ... & 1
-              \end{array} } \right]
-            \]
+	          I_n = 
+        	  \left[ {\begin{array}{cccc}
+                    1 & 0 & ... & 0 \\
+                    0 & 1 & ... & 0 \\
+                    ...   &   ...   & ... &   ...   \\
+                    0 & 0 & ... & 1
+                    \end{array} } 
+                  \right]
+                \]
 	\end{itemize}
 \end{frame}
 
@@ -201,7 +202,81 @@
 \begin{frame}{Finding Nth Fibonacci number}
   Suppose we have a vector (matrix with 
   one row and several columns) of $(F_{i-2}, F_{i-1})$
-  and we want to multiply it by some matrix $M$, so that we get $(F_{i-1}, F_i)$ as a result.
+  and we want to multiply it by some matrix, so that we get $(F_{i-1}, F_i)$ as a result.
+  \pause \newline
+  Let's call this matrix $M$: \newline
+  $(F_{i-2}, F_{i-1}) * M = (F_{i-1}, F_i)$ \newline \newline
+  Two questions we should answer arise immediately:
+  \begin{enumerate}
+    \item What are the dimensions of $M$?
+    \item What are the exact values in $M$?
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Finding Nth Fibonacci number}
+  We can answer them using the definition of matrix multiplication: \newline
+  \pause
+  \begin{itemize}
+    \item The $size$. \newline
+      We multiply $(F_{i-2}, F_{i-1})$, which has $1$ row and $2$ columns, by $M$. 
+      \newline
+      The result is $(F_{i-1}, F_i)$, which has $1$ row and $2$ columns.
+      \pause \newline \newline
+      By definition, if we multiply a matrix with $N$ rows and $K$ columns by 
+      a matrix with $K$ rows and $L$ columns, we get a matrix with $N$ rows and $L$ columns.
+      \newline \newline
+      Therefore, matrix $M$ has $K = 2$ rows and $L = 2$ columns.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Finding Nth Fibonacci number}
+  We can answer them using the definition of matrix multiplication: \newline
+  \begin{itemize}
+    \item The $values$. \newline \pause
+      We now know that $M$ has $2$ rows and $2$ columns, $4$ values overall.
+      Let’s denote them by letters, as we usually do with unknown variables:
+      \newline \newline
+        \[
+          M = 
+          \left[ {
+            \begin{array}{cc}
+              a & b \\
+              c & d \\      
+            \end{array} } 
+          \right]
+        \]
+      \pause
+      We want to find $a, b, c$ and $d$.
+      \newline
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Finding Nth Fibonacci number}
+  We have, 
+  \[
+    M = 
+    \left[ {
+      \begin{array}{cc}
+        a & b \\
+        c & d \\      
+      \end{array} } 
+    \right]
+  \]
+  \pause
+  We want to find $a, b, c$ and $d$.
+  \newline
+  Let's see what we get if we multiply $(F_{i-2}, F_{i-1})$ by $M$ by definition:
+  \newline
+  \[
+    (F_{i-2}, F_{i-1})
+    *
+    \left[ {
+      \begin{array}{cc}
+        a & b \\
+        c & d \\      
+      \end{array} } 
+    \right]
+  \]
 \end{frame}
 
 \begin{frame}{}
