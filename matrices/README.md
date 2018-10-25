@@ -79,3 +79,21 @@ Suppose we have a vector (matrix with one row and several columns) of **(F_{i - 
 
 Let’s call this matrix **M**:
 
+![Matrix M](https://github.com/nurseiit/campunist/raw/master/matrices/files/F_N*M.png)
+
+Two questions we should answer arise immediately:
+
+1. What are the dimensions of *M*?
+2. What are exact values in *M*?
+
+We can answer them, using the definition of matrix multiplication:
+
+1. The size. We multiply the **(F_{i - 2}, F_{i - 1})**, which has 1 row and 2 columns, by M. The result is **(F_{i - 1}, F_i)**, which has 1 row and 2 columns.
+
+By definition, if we multiply a matrix with N rows and K columns by a matrix with K rows and L columns, we get a matrix with N rows and L columns.
+
+In our case, N = 1, K = 2 (number of rows and columns of **(F_{i - 2}, F_{i - 1})**), 
+
+and L = 2 (number of columns in the resulting **(F_{i - 1}, F_i)**).
+
+*Therefore, M has K = 2 rows and L = 2 columns.*
