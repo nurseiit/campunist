@@ -342,10 +342,25 @@
   Computing $M^k$ takes $O(2^3 * log(k))$ time. 
   \newline
   Thus, we can now find $N$-th Fibonacci number in $O(log(N))$ time.
+  \pause \newline \newline
+  You can find the reference code at \textit{https://devnur.me/campunist}
 \end{frame}
 
 \begin{frame}{General Solution for Recurrence Relations}
-  
+  We can generalize the Fibonacci problem's solution to solve linear recurrent sequences.
+  \pause \newline
+  Let's take a look at more general problem than before. Suppose sequence $A_i$ satisfies the following:
+  \begin{itemize}
+    \item $A_0 = a_0, A_1 = a_1, ..., A_{k-1} = a_{k-1}$ for given $a_0, a_1, ..., a_{k-1}$.
+      \pause
+    \item $A_i = c_1 * A_{i-1} + c_2 * A_{i-2} + ... + c_k * A_{i-k}$ for given $c_1, c_2, ..., c_k$.      
+  \end{itemize}
+  \pause
+  We need to find $A_N$ $mod$ $10^9 + 7$, for $N \leq 10^{18}$ and $k \leq 50$.
+  \pause \newline \newline
+  \textit{Side note:} sequence $A_i$ is called \textbf{recurrent}, because computing $A_i$
+  requires computing $A_j$ for some $j < i$. Also, $A_i$ is called \textbf{linear},
+  because it depends linearly on $A_j$ for some $j < i$.
 \end{frame}
 
 \begin{frame}{}
