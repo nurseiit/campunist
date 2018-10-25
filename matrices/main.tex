@@ -525,6 +525,44 @@
 \begin{frame}[fragile]{Solving DP problems with fixed linear transitions}
   To speed things up, we can apply matrix multiplication. But how?
   \pause \newline
+  \begin{itemize}
+    \item 
+      Well, one can notice that transition from $n$ to $n + 1$ inside the loop
+      happens in exactly the same way as it would for example, from $n + 500$ to $n + 501$.
+      \newline Because $bad[i][j]$ does not change over time!
+  \pause \newline
+    \item
+      Also, another observation would be: 
+      transition formulas from $n$ to $n + 1$ are \textbf{linear}.
+      To compute $dp[n + 1][next]$, we sum up $dp[n][letter]$
+      for some \textit{letter}.
+      \newline 
+      We do not compute
+      $dp[n + 1][next]$ += $dp[n][letter] * dp[n][next]$ or anything alike,
+      which \textit{would} mean that the transition is \textbf{not linear}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Solving DP problems with fixed linear transitions}
+  These two observations combined provide a useful property: 
+  \newline
+  there exists some matrix $M$, such that for any $n \geq 1$:
+  $(dp_n[a], dp_n[b], ..., dp_n[z]) * M = (dp_{n+1}[a], dp_{n+1}[b], ..., dp_{n+1}[z])$
+  \pause \newline
+  To find such $M$ we modify our initial solution a little:
+  \begin{lstlisting}
+    for last = a..z:
+      for next = a..z:
+        dp[n+1][next] += dp[n][last] * good[last][next]
+  \end{lstlisting}
+  Where $good[i][j] = not$ $bad[i][j]$ for all letters $i,j$.
+  \pause \newline
+  Now, it is clear that matrix $M$ is nothing but a matrix $good$.
+  \pause \newline
+  The final solution is: 
+  \newline 
+  $(dp_1[a], dp_1[b], ..., dp_1[z]) * M^{L-1} = (dp_L[a], dp_L[b], ..., dp_L[z])$
+  \newline That works in $O(26^3 * \log{L})$ which is more than enough to pass the TL.
 \end{frame}
 
 \begin{frame}{}
