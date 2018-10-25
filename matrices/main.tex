@@ -410,9 +410,40 @@
 \end{frame}
 
 \begin{frame}{General Solution for Recurrence Relations}
-  Now we can write down equations based on the definition of matrix multiplication:
+  Now we can write down the equations based on the definition of matrix multiplication:
   \pause \newline
+  \centerline{$A_{i-k}*x_{11} + A_{i-k+1}*x_{21} + ... + A_{i-1}*x_{k1} = A_{i-k+1}$}
+  \newline
+  \centerline{$A_{i-k}*x_{12} + A_{i-k+1}*x_{22} + ... + A_{i-1}*x_{k2} = A_{i-k+2}$}
+  \newline
+  \centerline{$...$}
+  \newline
+  \centerline{$A_{i-k}*x_{1k} + A_{i-k+1}*x_{2k} + ... + A_{i-1}*x_{kk} = A_{i}$}
+  \pause \newline\newline
+  From which we can easily obtain $x_{i,i-1} = 1$ for $i = 2, 3, ..., k$ and 
+  $x_{ij} = 0$ for $i = 1, 2, 3, ..., k$ and $j \leq k - 1,$ $j \neq i - 1$.
+  \pause \newline
+  The last equation looks like the definition of $A_i$. Based on that, we get $x_{ik} = c_{k-i+1}$:
+  \[
+    M = 
+    \left[ {
+      \begin{array}{ccccc}
+        0 & 0 & ... & 0 & c_k \\
+        1 & 0 & ... & 0 & c_{k-1} \\
+        0 & 1 & ... & 0 & c_{k-2} \\
+        ... & ... & ... & ... & ... \\
+        0 & 0 & ... & 1 & c_1 \\
+      \end{array} } 
+    \right]
+  \]
+\end{frame}
 
+\begin{frame}{General Solution for Recurrence Relations}
+  Now, when we have matrix $M$, there are no more obstacles. 
+  \newline
+  We can implement the solution just like the original \textit{Fibonacci problem}.
+  \pause \newline\newline
+  If you use \textit{Fast Maxtrix Exponentiation} you get $O(k^3 * \log{N})$ solution.
 \end{frame}
 
 \begin{frame}{}
