@@ -363,8 +363,60 @@
   because it depends linearly on $A_j$ for some $j < i$.
 \end{frame}
 
+\begin{frame}{General Solution for Recurrence Relations}
+  Notice that if we take $k = 2$, $a_0 = a_1 = 1$, $c_1 = c_2 = 1$, then this
+  sequence will be equivalent to the \textit{Fibonacci sequence} from the previous problem.
+  \pause \newline
+  Let's try to solve using matrix multiplication right from the start.
+  \newline
+  If we obtain matrix $M$, such that:
+  \newline
+  $(A_{i-k}, A_{i-k+1}, ..., A_{i-1}) * M = (A_{i-k+1}, A_{i-k+2}, ..., A_i)$
+  \pause \newline
+  we can get $A_N$ as follows:
+  \newline
+  $(a_0, a_1, ..., a_{k-1}) * M^{N-k+1} = (A_{N-k+1}, A_{N-k+2}, ..., A_N)$
+\end{frame}
+
+\begin{frame}{General Solution for Recurrence Relations}
+  The two questions we had previously arise again:
+  \pause
+  \begin{enumerate}
+    \item What is the number of rows and columns of M?
+      \pause \newline
+       The reasoning is the same as with \textit{Fibonacci numbers}:
+       \newline
+       we multiply matrix with $1$ row and $k$ columns by $M$, and get matrix with $1$ row and $k$ columns.
+       \pause \newline
+      Therefore, $M$ has $k$ rows and $k$ columns.
+      In other words, $M$ is a \textit{square matrix} with size $k$.
+    \pause
+    \item What are the values in $M$?
+      \pause Let's denote them as $x_{ij}$:
+      \newline
+      \[
+        M = 
+        \left[ {
+          \begin{array}{cccc}
+            x_{11} & x_{12} & ... & x_{1k} \\
+            x_{21} & x_{22} & ... & x_{2k} \\
+            ... & ... & ... & ... \\
+            x_{k1} & x_{k2} & ... & x_{kk} \\
+          \end{array} } 
+        \right]
+      \]
+
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{General Solution for Recurrence Relations}
+  Now we can write down equations based on the definition of matrix multiplication:
+  \pause \newline
+
+\end{frame}
+
 \begin{frame}{}
-		\LARGE{\centerline{Thank you!}}
+                \LARGE{\centerline{Thank you!}}
 \end{frame}
 
 \end{document}
