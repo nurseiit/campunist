@@ -1,4 +1,8 @@
+*.aux
+*.log
+*.nav
 *.out
-*.in
-*.a
+*.snm
+*.toc
+*.vrb
 local/
