@@ -12,14 +12,15 @@ body {
 
 ul {
   list-style: none;
-  margin-left: 36%;
-  width: 250px;
+  margin: auto;
+  max-width: 250px;
 }
 ul li {
   color: #333;
   background-color: rgba(255,255,255,.5);
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 15px; 
+  margin-left: -35px;
   border-radius: 5px;
   list-style: none;
 }
